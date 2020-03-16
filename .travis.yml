@@ -1,5 +1,10 @@
-language: ruby
-jdk: oraclejdk8
-rvm: 2.2
-before_install: gem install jekyll
-script: ant -buildfile build.xml travis-publish-ig -Dguidename=cqfmeasures -Dspec=http://hl7-fhir.github.io/
+language: node_js
+node_js:
+  - "12"
+services:
+  - docker
+before_install:
+  - sudo chown -R travis ./travis/setup.sh
+  - sudo chmod +x ./travis/setup.sh ./travis/test_measures.sh
+  - ./travis/setup.sh
+script: ./travis/test_measures.sh
